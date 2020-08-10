@@ -36,8 +36,7 @@ def swap(i):
     name_swap = users[i]
     users[i] = users[i+1]
     users[i+1] = name_swap
-    # for u in users:
-    #     print(" >> ", u['name'])
-    # doar schimbarea name(i)(+1) fara afisare :D
 
-swap(4)
+swap(1)
+for u in users:
+    print(" >> ", u['name'])
