@@ -21,7 +21,7 @@ def not_found():
 
 def read():
     for i in range(len(students)):
-        print(f"{students[i]['name']:30s}  {students[i]['specs']:20s}")
+        print(f"{students[i]['name']:30s}  {students[i]['specs']:20s}") #/online_python_formatter mia dat aici eroare, /// vsc, pep8 nu vede eroare
 
 
 def details():
@@ -29,6 +29,7 @@ def details():
     for i in range(len(students)):
         if students[i]['name'] == name:
             print("STUDENT FOUND!")
+            #/online_python_formatter mia dat aici eroare, /// vsc, pep8 nu vede eroare
             print(f"{students[i]['name']:30s}   {students[i]['specs']:20s}  {students[i]['grades']:10.2f}")            
             return True
     else:
