@@ -21,7 +21,7 @@ def not_found():
 
 def read():
     for i in range(len(students)):
-        print(f"{students[i]['name']:30s}  {students[i]['specs']:20s}") #/online_python_formatter mia dat aici eroare, /// vsc, pep8 nu vede eroare
+        print(f"{students[i]['name']:30s}  {students[i]['specs']:20s}") 
 
 
 def details():
@@ -29,14 +29,13 @@ def details():
     for i in range(len(students)):
         if students[i]['name'] == name:
             print("STUDENT FOUND!")
-            #/online_python_formatter mia dat aici eroare, /// vsc, pep8 nu vede eroare
             print(f"{students[i]['name']:30s}   {students[i]['specs']:20s}  {students[i]['grades']:10.2f}")            
             return True
     else:
         not_found()
 
 
-# aici cred ca pot optimiza codul, dar iarasi voi pierde securitatea ca la add_student() :S
+# de optimizat codul
 
 def edit():
     name = input(" Which student? > ").lower().title()
@@ -73,7 +72,7 @@ def edit():
         not_found()
 
 
-# am ales functia del pentru ca nu am nevoie de a intoarce o valoare(pop), plus nu stiam cum sa folosesc corect pop :DDD
+# de incercat cu functia pop()
 
 def delete():
     name = input(" Which student? > ").lower().title()
@@ -86,7 +85,7 @@ def delete():
         not_found()
 
 
-# am ramas fara securitatea de la spatii, cifre etc, acum pot fi introduse sau omise unele valori si studentul oricum va fi adaugat :(
+#de facut restrictii '' + ' ' 
     
 def new_student():
         students.append({
