@@ -1,3 +1,5 @@
+# Students dict: names, speciality, grades
+
 students = [
     {'name': 'Ion Drop', 'specs': 'IT', 'grades': 9.567},
     {'name': 'Tatiana Hush', 'specs': 'Filology', 'grades': 9.667},
@@ -10,31 +12,101 @@ students = [
     {'name': 'Willie Zuckerberg', 'specs': 'Nothing', 'grades': 10.000},
 ]
 
-ADMIN = "Sarah Connor"
-PASSWORD = "dadada123"
 
+# ERROR NOT FOUND
 
 def not_found():
         print("##### ERROR ##### STUDENT NOT FOUND! ##### TRY AGAIN ##### ERROR #####")
         return False
 
 
+# func print name, specs, grades
+
+def display_st():
+    for i in range(len(students)):
+        print(f'='*150)
+        print(f" >> {students[i]['name']:30s}  {students[i]['specs']:20s} {students[i]['grades']:4.2f}")
+        print(f'='*150)
+
+
+# 1. Show Students List
+
 def read():
     for i in range(len(students)):
-        print(f"{students[i]['name']:30s}  {students[i]['specs']:20s}") 
+        print(f'='*150)
+        print(f" > {students[i]['name']:30s}  {students[i]['specs']:20s}")
+        # print(students[i].get('name') students[i].get('specs'))
+        # alta varianta de a extrage i din dict
+        print(f'='*150)
 
+
+# 1.1. Show Students List Details
+
+def read_details():
+    display_st()
+
+
+# 1.2. Show Students List with Details in Alphabetic Order
+
+def read_alphabetic():
+    for j in range(len(students)):
+        for i in range(len(students) - 1):
+            if students[i]['name'] > students[i + 1]['name']:
+                temp = students[i]
+                students[i] = students[i + 1]
+                students[i + 1] = temp
+    display_st()
+
+
+# 1.3. Show Students List with Details in Grades Order
+
+def bubble_sort_grades(order='1'):
+    if order == '1':
+        for j in range(len(students)):
+            for i in range(len(students) - 1):
+                if students[i]['grades'] < students[i + 1]['grades']:
+                    temp = students[i]
+                    students[i] = students[i + 1]
+                    students[i + 1] = temp
+    if order == '2':
+        for j in range(len(students)):
+            for i in range(len(students) - 1):
+                if students[i]['grades'] > students[i + 1]['grades']:
+                    temp = students[i]
+                    students[i] = students[i + 1]
+                    students[i + 1] = temp
+    if len(order.strip()) == 0:
+        pass
+    else:
+        pass
+    display_st()
+
+
+def sort_grades():
+    print(f' #####'*15, '\n')
+    print("If you want in ascending order type 1\n")
+    print("If you want in descending order type 2\n")
+    print("If you want in order of registration in the system, press ENTER\n")
+    print(f'#####'*15)
+    bubble_sort_grades(input(">>>"))
+
+
+# 2. Show Student Details
 
 def details():
     name = input(" Which student? > ").lower().title()
     for i in range(len(students)):
         if students[i]['name'] == name:
             print("STUDENT FOUND!")
-            print(f"{students[i]['name']:30s}   {students[i]['specs']:20s}  {students[i]['grades']:10.2f}")            
+            print(f'='*150)
+            print(f"{students[i]['name']:30s}   {students[i]['specs']:20s}  {students[i]['grades']:4.2f}")
+            print(f'='*150)
             return True
     else:
         not_found()
 
 
+# 3. Edit Student Details
 # de optimizat codul
 
 def edit():
@@ -72,7 +144,7 @@ def edit():
         not_found()
 
 
-# de incercat cu functia pop()
+# 4. Delete Student
 
 def delete():
     name = input(" Which student? > ").lower().title()
@@ -85,33 +157,28 @@ def delete():
         not_found()
 
 
-#de facut restrictii '' + ' ' 
-    
+# 5. ADD NEW Student
+
 def new_student():
-        students.append({
-            'name': input(" THE NAME AND SURNAME OF THE NEW STUDENT > ").lower().title(),
-            'specs': input(" STUDENT SPECIALTY > ").lower().title(),
-            'grades': float(input(" STUDENT GRADE > ")),
-            })
-        print("STUDENT ADD!")
+    try:
+        new_name = input(" THE NAME AND SURNAME OF THE NEW STUDENT > ").lower().title()
+        new_spec = input(" STUDENT SPECIALTY > ").lower().title()
+        new_grade = float(input(" STUDENT GRADE > > "))
+        if len(new_name.strip()) != 0 and len(new_spec.strip()) != 0 and new_grade <= 10 and new_grade > 0:
+            students.append({
+                'name': new_name,
+                'specs': new_spec,
+                'grades': new_grade,
+                })
+            print("STUDENT ADD!")
+        else:
+            print("PLEASE ENTER STUDENT GRADE")
+            return False
+    except:
+        print('ERROR, THE DATA WAS ENTERED INCORRECTLY')
 
 
-def admin():
-    admin_try = 0
-    while admin_try < 3:
-        admin = input("Your Acc:")
-        if admin != ADMIN:
-            admin_try += 1
-        if admin == ADMIN:
-            password = input("Your pass:")
-            if password == PASSWORD:
-                print(f"##### WELCOME {ADMIN} #####")
-                menu()
-        if password != PASSWORD:
-            admin_try += 1
-    else:
-        print("WRONG LOGIN/PASSWORD")
-
+# MENU
 
 def menu():
     option = - 1
@@ -119,19 +186,28 @@ def menu():
         while option != 0:
             print("\n\n")
             print("########## MENU ##########")
-            print("1. Show Students List")
-            print("2. Show Student Details")
-            print("3. Edit Student Details")
-            print("4. Delete Student")
-            print("5. ADD NEW Student")
-            print("0. Exit")
+            print("> 1. Show Students List")
+            print(">>\t1.1. Show Students List with Details")
+            print(">>\t1.2. Show Students List with Details in Alphabetic Order")
+            print(">>\t1.3. Show Students List with Details in Grades Order")
+            print("> 2. Show Student Details")
+            print("> 3. Edit Student Details")
+            print("> 4. Delete Student")
+            print("> 5. ADD NEW Student")
+            print("> 0. Exit")
             print("##########################")
             print("CHOOSE OPTION > ")
 
-            option = int(input())
+            option = float(input())
 
             if option == 1:
                 read()
+            if option == 1.1:
+                read_details()
+            if option == 1.2:
+                read_alphabetic()
+            if option == 1.3:
+                sort_grades()
             if option == 2:
                 details()
             if option == 3:
@@ -144,8 +220,7 @@ def menu():
                 print("##### ERROR ##### TRY AGAIN ##### ERROR #####")
                 menu()
             if option == 0:
-                print("##### EXIT #####")
+                print("##### GOODBYE ##### EXIT ##### GOODBYE #####")
     except ValueError:
         menu()
-
-admin()
+menu()
